@@ -77,16 +77,12 @@ function printFteByDiscipline(data){
 }
 
 function sortFteDisciplines(data) {
-    let objet = {};
-    // listeDisciplines(data).map(disc => fteDiscipline(data, disc)).sort((a, b) => a - b).forEach(nombre => objet[nombre] = nombre);
+    let resultat = [];
     listeDisciplines(data).map(disc => {
-        objet[disc] = fteDiscipline(data, disc);
-    });
-    // return objet;
-    const resultat = Object.entries(objet).sort( ([,a], [,b]) => b - a);
-    // const resultat = Object.keys(objet).sort( (a, b) => {
-    //     return objet[a] - objet[b]
-    // })
+        resultat.push([disc, fteDiscipline(data, disc)]);
+    })
+    resultat.sort(([,a], [,b]) => b - a);
+
     resultat.forEach(element => {
         console.log(element[0] + " : " + element[1]);
     });
