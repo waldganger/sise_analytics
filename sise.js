@@ -12,12 +12,14 @@ fetch(url)
     .then(response => response.json())
     .then(objet => { 
         const data = objet.records;
-        console.log(data);
-        console.log(fte(data));
-        console.log(listeFields(data));
-        console.log(listeDisciplines(data));
-        console.log(listeSite(data));
-        printFteByDiscipline(data);
+        // console.log(data);
+        // console.log(fte(data));
+        // console.log(listeFields(data));
+        // console.log(listeDisciplines(data));
+        // console.log(listeSite(data));
+        // printFteByDiscipline(data);
+        sortFteDisciplines(data);
+        
     });
 
 function fte(data){
@@ -72,6 +74,22 @@ function printFteByDiscipline(data){
                 "FTE": fteDiscipline(data, disc)
             };
         }));
+}
+
+function sortFteDisciplines(data) {
+    let objet = {};
+    // listeDisciplines(data).map(disc => fteDiscipline(data, disc)).sort((a, b) => a - b).forEach(nombre => objet[nombre] = nombre);
+    listeDisciplines(data).map(disc => {
+        objet[disc] = fteDiscipline(data, disc);
+    });
+    // return objet;
+    const resultat = Object.entries(objet).sort( ([,a], [,b]) => b - a);
+    // const resultat = Object.keys(objet).sort( (a, b) => {
+    //     return objet[a] - objet[b]
+    // })
+    resultat.forEach(element => {
+        console.log(element[0] + " : " + element[1]);
+    });
 }
 
 
